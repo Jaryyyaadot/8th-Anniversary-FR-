@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ja-O &amp; Mon — 8 Years</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF9F1;
+    --paper:#FFFDFA;
+    --pink:#F6BFCB;
+    --pink-deep:#E8899E;
+    --blue:#AEDBEA;
+    --blue-deep:#6FB6CE;
+    --yellow:#FCE1A4;
+    --yellow-deep:#F0BE58;
+    --peach:#F6C6A0;
+    --peach-deep:#E89A5E;
+    --brown:#5B4433;
+    --brown-soft:#8A7462;
+    --line:#EAD9CE;
+    --shadow-soft: 0 10px 30px rgba(91,68,51,0.08);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--brown);
+    font-family:'Quicksand',sans-serif;
+    overflow:hidden;
+  }
+  h1,h2,h3{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    color:var(--brown);
+    margin:0;
+  }
+  p{line-height:1.7;font-size:1.05rem;color:var(--brown-soft);margin:0 0 12px;}
+  p:last-child{margin-bottom:0;}
+
+  #app{position:fixed;inset:0;overflow:hidden;}
+
+  .slide{
+    position:absolute;inset:0;
+    display:none;
+    overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    padding:56px 24px 120px;
+  }
+  .slide.active{display:flex;flex-direction:column;align-items:center;}
+  .slide-inner{max-width:640px;width:100%;margin:auto;text-align:center;}
+  .slide.active .slide-inner{animation:slideFade .55s ease both;}
+  @keyframes slideFade{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+  .float{animation:floaty 5s ease-in-out infinite;}
+  .float2{animation:floaty 6.5s ease-in-out infinite;}
+  @keyframes floaty{0%,100%{transform:translateY(0px);}50%{transform:translateY(-12px);}}
+  @keyframes sparkle{0%,100%{opacity:.35;transform:scale(0.9);}50%{opacity:1;transform:scale(1.15);}}
+  @keyframes bob{0%,100%{transform:rotate(-4deg);}50%{transform:rotate(4deg);}}
+
+  .bg-hero{background:radial-gradient(circle at 15% 20%, var(--yellow) 0%, transparent 38%),radial-gradient(circle at 85% 15%, var(--blue) 0%, transparent 40%),radial-gradient(circle at 80% 85%, var(--pink) 0%, transparent 42%),radial-gradient(circle at 10% 85%, var(--peach) 0%, transparent 40%),var(--cream);}
+  .bg-1{background:linear-gradient(180deg, var(--cream), var(--yellow) 140%);}
+  .bg-2{background:linear-gradient(180deg, var(--cream), var(--blue) 140%);}
+  .bg-3{background:linear-gradient(180deg, var(--cream), var(--pink) 140%);}
+  .bg-4{background:linear-gradient(180deg, var(--cream), var(--peach) 140%);}
+  .bg-finale{background:radial-gradient(circle at 20% 30%, var(--pink) 0%, transparent 45%),radial-gradient(circle at 80% 25%, var(--yellow) 0%, transparent 45%),radial-gradient(circle at 50% 90%, var(--blue) 0%, transparent 45%),var(--cream);}
+
+  .eyebrow{font-size:.85rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pink-deep);font-weight:700;margin-bottom:14px;}
+  .hero h1{font-size:clamp(2.2rem,8vw,3.6rem);line-height:1.05;}
+  .hero .sub{font-size:1.1rem;color:var(--brown-soft);margin-top:14px;max-width:460px;margin-left:auto;margin-right:auto;}
+  .datepill{margin-top:22px;display:inline-flex;gap:8px;align-items:center;background:var(--paper);border:2px solid var(--line);padding:10px 20px;border-radius:100px;font-weight:600;box-shadow:var(--shadow-soft);}
+  .heroChars{display:flex;align-items:flex-end;justify-content:center;gap:6px;margin-top:30px;}
+
+  .chapter-card{background:var(--paper);border-radius:28px;padding:36px 30px;box-shadow:var(--shadow-soft);border:2px solid var(--line);}
+  .chapter-label{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;color:var(--peach-deep);margin-bottom:10px;}
+  .chapter-card h2{font-size:clamp(1.4rem,4vw,1.9rem);margin-bottom:14px;}
+  .chapter-scene{display:flex;align-items:center;justify-content:center;margin:0 0 20px;min-height:120px;}
+  .chapter-text{text-align:left;}
+
+  .ask-box{margin-top:20px;background:var(--cream);border:2px dashed var(--pink-deep);border-radius:18px;padding:18px 20px;text-align:left;}
+  .ask-box label{display:block;font-weight:600;margin-bottom:10px;color:var(--brown);}
+  .ask-row{display:flex;gap:10px;flex-wrap:wrap;}
+  input[type=text]{flex:1;min-width:160px;padding:12px 16px;border-radius:12px;border:2px solid var(--line);font-family:'Quicksand',sans-serif;font-size:1rem;background:var(--paper);color:var(--brown);}
+  input[type=text]:focus{outline:none;border-color:var(--pink-deep);}
+  button.cute-btn{padding:12px 22px;border-radius:12px;border:none;background:var(--pink-deep);color:#fff;font-family:'Fredoka',sans-serif;font-weight:600;font-size:1rem;cursor:pointer;transition:transform .15s ease, background .2s ease;}
+  button.cute-btn:hover{background:var(--pink);transform:translateY(-2px);}
+  button.cute-btn:active{transform:translateY(0);}
+  .reveal-msg{margin-top:14px;padding:14px 18px;border-radius:14px;background:#fff;border:2px solid var(--yellow-deep);display:none;font-weight:600;color:var(--brown);text-align:left;}
+  .reveal-msg.show{display:block;animation:pop .4s ease;}
+  @keyframes pop{0%{transform:scale(.9);opacity:0;}100%{transform:scale(1);opacity:1;}}
+  .err-msg{color:var(--pink-deep);font-size:.85rem;margin-top:8px;display:none;font-weight:600;text-align:left;}
+  .err-msg.show{display:block;}
+
+  .montage{display:flex;flex-wrap:wrap;gap:12px;margin-top:16px;}
+  .montage-item{flex:1 1 130px;background:var(--cream);border-radius:16px;padding:14px 12px;text-align:center;border:2px solid var(--line);}
+  .montage-item .emoji{font-size:1.7rem;display:block;margin-bottom:6px;}
+  .montage-item span.label{font-size:.82rem;font-weight:600;color:var(--brown-soft);}
+
+  .qa-block{margin-bottom:26px;text-align:left;}
+  .qa-block:last-child{margin-bottom:0;}
+  .qa-block label{display:block;font-weight:600;margin-bottom:8px;}
+  textarea{width:100%;padding:14px 16px;border-radius:14px;border:2px solid var(--line);font-family:'Quicksand',sans-serif;font-size:1rem;color:var(--brown);background:var(--paper);resize:vertical;min-height:70px;}
+  textarea:focus{outline:none;border-color:var(--blue-deep);}
+
+  .quiz-q{margin-bottom:22px;text-align:left;}
+  .quiz-q:last-child{margin-bottom:0;}
+  .quiz-q p.qtext{font-weight:600;color:var(--brown);margin-bottom:10px;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{padding:11px 15px;border-radius:12px;border:2px solid var(--line);background:var(--paper);cursor:pointer;font-weight:500;transition:background .15s ease, border-color .15s ease;}
+  .opt:hover{border-color:var(--blue-deep);}
+  .opt.correct{background:#E4F2E0;border-color:#8FBF7A;}
+  .opt.wrong{background:#FBE4E4;border-color:#E28F8F;}
+  .opt.disabled{pointer-events:none;}
+  .quiz-score{margin-top:16px;padding:14px 18px;border-radius:14px;background:var(--yellow);font-weight:700;text-align:center;display:none;}
+  .quiz-score.show{display:block;}
+
+  .countdown{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:20px;}
+  .cbox{background:var(--paper);border:2px solid var(--pink-deep);border-radius:16px;padding:14px 16px;min-width:76px;box-shadow:var(--shadow-soft);}
+  .cbox .num{font-family:'Fredoka',sans-serif;font-size:1.8rem;font-weight:700;color:var(--pink-deep);}
+  .cbox .unit{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--brown-soft);}
+
+  .giftbox{cursor:pointer;user-select:none;transition:transform .2s ease;display:inline-block;margin-top:10px;}
+  .giftbox:hover{transform:scale(1.05);}
+  .giftbox:active{transform:scale(.96);}
+  .finale-msg{margin-top:22px;max-width:440px;opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;margin-left:auto;margin-right:auto;}
+  .finale-msg.show{opacity:1;transform:translateY(0);}
+  .finale-msg h2{font-size:1.4rem;margin-bottom:10px;}
+  .confetti{position:fixed;top:-20px;z-index:300;border-radius:2px;pointer-events:none;}
+
+  #musicBtn{position:fixed;top:16px;right:16px;z-index:200;width:48px;height:48px;border-radius:50%;background:var(--paper);border:2px solid var(--pink);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:var(--shadow-soft);font-size:18px;}
+  #musicBtn.spinning{animation:spin 3.5s linear infinite;}
+  @keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+  #navbar{position:fixed;left:0;right:0;bottom:0;z-index:200;background:var(--paper);border-top:2px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  #navbar button{padding:10px 18px;border-radius:12px;border:2px solid var(--line);background:var(--paper);font-family:'Fredoka',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;color:var(--brown);}
+  #navbar button:disabled{opacity:.35;cursor:default;}
+  #navbar button.primary{background:var(--pink-deep);color:#fff;border-color:var(--pink-deep);}
+  #dots{display:flex;gap:6px;}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--line);cursor:pointer;}
+  .dot.on{background:var(--pink-deep);}
+</style>
+</head>
+<body>
+
+<audio id="bgm" loop preload="none">
+  <source src="REPLACE_WITH_YOUR_SONG_URL.mp3" type="audio/mpeg">
+</audio>
+<div id="musicBtn" title="Play our song" aria-label="Toggle music">🎵</div>
+
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="girl" viewBox="0 0 140 200">
+      <ellipse cx="70" cy="188" rx="34" ry="8" fill="#000" opacity="0.06"/>
+      <path d="M40 120 Q40 190 70 190 Q100 190 100 120 Z" fill="#F6BFCB"/>
+      <circle cx="70" cy="70" r="42" fill="#FBE0C4"/>
+      <path d="M28 62 Q22 20 70 18 Q118 20 112 62 Q112 40 96 34 Q100 46 90 48 Q92 34 76 30 Q80 44 66 42 Q54 40 52 26 Q42 34 44 50 Q34 44 28 62 Z" fill="#7A5643"/>
+      <circle cx="34" cy="70" r="9" fill="#7A5643"/>
+      <circle cx="106" cy="70" r="9" fill="#7A5643"/>
+      <circle cx="54" cy="74" r="5" fill="#5B4433"/>
+      <circle cx="86" cy="74" r="5" fill="#5B4433"/>
+      <path d="M52 92 Q70 100 88 92" stroke="#C97A6D" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <circle cx="48" cy="84" r="6" fill="#F6BFCB" opacity="0.7"/>
+      <circle cx="92" cy="84" r="6" fill="#F6BFCB" opacity="0.7"/>
+      <rect x="46" y="118" width="48" height="10" rx="5" fill="#E8899E"/>
+    </symbol>
+    <symbol id="boy" viewBox="0 0 150 240">
+      <ellipse cx="75" cy="228" rx="38" ry="8" fill="#000" opacity="0.06"/>
+      <path d="M38 145 Q38 230 75 230 Q112 230 112 145 Z" fill="#AEDBEA"/>
+      <circle cx="75" cy="78" r="46" fill="#FBE0C4"/>
+      <path d="M30 70 Q24 22 75 20 Q128 22 122 72 Q120 50 104 42 Q108 56 96 56 Q100 40 82 36 Q86 52 70 48 Q56 46 56 30 Q42 40 44 58 Q34 50 30 70 Z" fill="#4A3628"/>
+      <circle cx="38" cy="78" r="9" fill="#4A3628"/>
+      <circle cx="112" cy="78" r="9" fill="#4A3628"/>
+      <circle cx="58" cy="82" r="5" fill="#5B4433"/>
+      <circle cx="92" cy="82" r="5" fill="#5B4433"/>
+      <path d="M58 100 Q75 104 92 100" stroke="#C97A6D" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <rect x="48" y="140" width="54" height="12" rx="6" fill="#6FB6CE"/>
+    </symbol>
+    <symbol id="lolli" viewBox="0 0 60 100">
+      <circle cx="30" cy="28" r="24" fill="#E8899E"/>
+      <path d="M30 4 A24 24 0 0 1 30 52 A12 12 0 0 1 30 28 A6 6 0 0 0 30 4" fill="#fff" opacity="0.35"/>
+      <rect x="27" y="50" width="6" height="46" rx="3" fill="#D8C6B8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div id="app">
+
+  <section class="slide active bg-hero" data-slide="0">
+    <div class="slide-inner hero">
+      <div class="eyebrow">A love story, still being written</div>
+      <h1>Ja-O <span style="color:var(--pink-deep)">&amp;</span> Mon</h1>
+      <p class="sub">Eight years ago, a quiet girl and a nonchalant boy started a story neither of them meant to begin. This is that story — and a small surprise waiting at the end.</p>
+      <div class="datepill">🎉 12 September 2026 · Our 8th anniversary</div>
+      <div class="heroChars">
+        <svg width="60" height="86" class="float"><use href="#girl"/></svg>
+        <svg width="70" height="104" class="float2"><use href="#boy"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-1" data-slide="1">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Chapter one · Middle school, 2018</div>
+        <h2>The first spark</h2>
+        <div class="chapter-scene">
+          <svg width="56" height="80" class="float" style="margin-right:-6px"><use href="#girl"/></svg>
+          <svg width="30" height="30" viewBox="0 0 24 24" style="animation:sparkle 1.8s ease-in-out infinite;margin:0 8px;"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z" fill="#F0BE58"/></svg>
+          <svg width="62" height="94" class="float2" style="margin-left:-6px"><use href="#boy"/></svg>
+        </div>
+        <div class="chapter-text">
+          <p>Ja-O felt it the very first moment she saw him — something close to love at first sight. But she kept it locked away, playing it cool, like it was nothing at all.</p>
+          <p>Mon, back then, was a little lost in himself — quiet, nonchalant, like nothing could quite reach him. Not even a girl who had already decided he was worth noticing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-2" data-slide="2">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Chapter two · Somewhere along the way</div>
+        <h2>Strawberry lollipops</h2>
+        <div class="chapter-scene">
+          <svg width="56" height="94" viewBox="0 0 60 100" class="float"><use href="#lolli"/></svg>
+        </div>
+        <div class="chapter-text">
+          <p>Little by little, Mon started showing up with candy — always a lollipop, tucked in his hand like it was no big deal.</p>
+          <p>Then one day, it was always strawberry. He'd noticed, quietly, that it was her favorite — and never said a word about why. Ja-O felt seen for the first time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-3" data-slide="3">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Chapter three · The art classroom</div>
+        <h2>She made the first move</h2>
+        <div class="chapter-scene">
+          <svg width="58" height="82" class="float"><use href="#girl"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" style="margin:0 4px;animation:bob 2s ease-in-out infinite;"><path d="M12 21 C6 15 2 11 2 7 C2 4 4 2 7 2 C9 2 11 3 12 5 C13 3 15 2 17 2 C20 2 22 4 22 7 C22 11 18 15 12 21 Z" fill="#E8899E"/></svg>
+          <svg width="64" height="96" class="float2"><use href="#boy"/></svg>
+        </div>
+        <div class="chapter-text">
+          <p>After months of quietly learning each other — comfortable silences, shared glances, strawberry candy — Ja-O finally said it out loud.</p>
+          <p>Right there in the art classroom, paint-stained tables and all, she made the first move.</p>
+        </div>
+        <div class="ask-box">
+          <label>Do you remember exactly when this happened? Take a guess — day, month, year, even the time.</label>
+          <div class="ask-row">
+            <input type="text" id="dateGuess" placeholder="e.g. 12 September 2018, 11am">
+            <button class="cute-btn" id="dateCheckBtn">Check</button>
+          </div>
+          <div class="err-msg" id="dateErr">Type your guess first.</div>
+          <div class="reveal-msg" id="dateReveal">🎨 It was 11:00 AM, 12 September 2018 — the moment everything changed.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-4" data-slide="4">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Chapter four · Eight years, one story</div>
+        <h2>Growing up, together</h2>
+        <div class="chapter-text">
+          <p>From middle schoolers to university graduates — side by side, the whole way.</p>
+        </div>
+        <div class="montage">
+          <div class="montage-item"><span class="emoji">🍜</span><span class="label">every meal shared</span></div>
+          <div class="montage-item"><span class="emoji">🎮</span><span class="label">nights spent gaming</span></div>
+          <div class="montage-item"><span class="emoji">💧</span><span class="label">tears from misunderstandings</span></div>
+          <div class="montage-item"><span class="emoji">🎓</span><span class="label">growing up side by side</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-1" data-slide="5">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Now it's your turn</div>
+        <h2>A couple of questions for you</h2>
+        <div class="qa-block">
+          <label>What's your favorite memory of us?</label>
+          <textarea id="q1" placeholder="Type it here..."></textarea>
+          <div class="err-msg" id="q1Err">Write something before submitting.</div>
+          <div style="margin-top:10px;"><button class="cute-btn" id="q1Btn">Submit</button></div>
+          <div class="reveal-msg" id="q1Reveal">Wow, anyway — my favorite is just being together, haha.</div>
+        </div>
+        <div class="qa-block">
+          <label>What is your goal in life?</label>
+          <textarea id="q2" placeholder="Type it here..."></textarea>
+          <div class="err-msg" id="q2Err">Write something before submitting.</div>
+          <div style="margin-top:10px;"><button class="cute-btn" id="q2Btn">Submit</button></div>
+          <div class="reveal-msg" id="q2Reveal">I wish everything works out for you. And you know? I'll definitely be there to support you, always beside you.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-2" data-slide="6">
+    <div class="slide-inner">
+      <div class="chapter-card">
+        <div class="chapter-label">Test your memory</div>
+        <h2>How well do you know our story?</h2>
+        <p style="margin-bottom:6px;text-align:left;">Edit the placeholder questions below to fit your real answers — pick the option, see how you did.</p>
+        <div id="quizArea"></div>
+        <div class="quiz-score" id="quizScore"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-3" data-slide="7">
+    <div class="slide-inner">
+      <div class="chapter-card" style="text-align:center;">
+        <div class="chapter-label">Counting down</div>
+        <h2>Until our 8th anniversary</h2>
+        <p style="text-align:center;">12 September 2026 · 11:00 AM — the same hour it all began.</p>
+        <div class="countdown">
+          <div class="cbox"><div class="num" id="cd-d">--</div><div class="unit">days</div></div>
+          <div class="cbox"><div class="num" id="cd-h">--</div><div class="unit">hours</div></div>
+          <div class="cbox"><div class="num" id="cd-m">--</div><div class="unit">mins</div></div>
+          <div class="cbox"><div class="num" id="cd-s">--</div><div class="unit">secs</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide bg-finale" data-slide="8">
+    <div class="slide-inner">
+      <div class="chapter-label">One last thing</div>
+      <h2 style="font-size:clamp(1.5rem,5vw,2.1rem);margin-bottom:10px;">Tap the box, Mon</h2>
+      <p style="max-width:400px;margin-left:auto;margin-right:auto;text-align:center;">Eight years of strawberry lollipops, art rooms, late-night games, and every ordinary day in between — deserve one more.</p>
+      <div class="giftbox" id="giftbox">
+        <svg width="120" height="120" viewBox="0 0 140 140">
+          <rect x="20" y="55" width="100" height="70" rx="10" fill="#E8899E"/>
+          <rect x="20" y="55" width="100" height="22" fill="#F6BFCB"/>
+          <rect x="60" y="55" width="20" height="70" fill="#F0BE58"/>
+          <rect x="20" y="66" width="100" height="14" fill="#F0BE58"/>
+          <path d="M70 55 C50 30 30 40 45 55 Z" fill="#F0BE58"/>
+          <path d="M70 55 C90 30 110 40 95 55 Z" fill="#F0BE58"/>
+        </svg>
+      </div>
+      <div class="finale-msg" id="giftMsg">
+        <h2>💝 Something special is waiting for you</h2>
+        <p>This one isn't inside the screen — keep an eye out, because very soon you'll be holding it for real. Happy 8th anniversary. Here's to the next chapters we haven't written yet.</p>
+        <p style="font-family:'Fredoka',sans-serif;font-size:1.15rem;color:var(--pink-deep);margin-top:10px;">— Ja-O</p>
+      </div>
+      <p style="margin-top:30px;font-size:.85rem;">made with eight years of us · 12.09.2018 – 12.09.2026</p>
+    </div>
+  </section>
+
+</div>
+
+<div id="navbar">
+  <button id="prevBtn">← Back</button>
+  <div id="dots"></div>
+  <button id="nextBtn" class="primary">Next →</button>
+</div>
+
+<script>
+  var totalSlides = document.querySelectorAll('.slide').length;
+  var current = 0;
+  var dotsEl = document.getElementById('dots');
+  for(var i=0;i<totalSlides;i++){
+    var d = document.createElement('div');
+    d.className = 'dot';
+    d.dataset.index = i;
+    d.addEventListener('click', function(){ goTo(parseInt(this.dataset.index,10)); });
+    dotsEl.appendChild(d);
+  }
+  function showSlide(idx){
+    var slides = document.querySelectorAll('.slide');
+    slides.forEach(function(s){ s.classList.remove('active'); });
+    slides[idx].classList.add('active');
+    slides[idx].scrollTop = 0;
+    var dots = dotsEl.querySelectorAll('.dot');
+    dots.forEach(function(dt,i){ dt.classList.toggle('on', i===idx); });
+    document.getElementById('prevBtn').disabled = (idx===0);
+    var nextBtn = document.getElementById('nextBtn');
+    if(idx === totalSlides-1){
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'The end 💛';
+    } else {
+      nextBtn.disabled = false;
+      nextBtn.textContent = 'Next →';
+    }
+    current = idx;
+  }
+  function goNext(){ if(current < totalSlides-1) showSlide(current+1); }
+  function goPrev(){ if(current > 0) showSlide(current-1); }
+  function goTo(idx){ showSlide(idx); }
+  showSlide(0);
+
+  document.getElementById('nextBtn').addEventListener('click', goNext);
+  document.getElementById('prevBtn').addEventListener('click', goPrev);
+
+  window.addEventListener('keydown', function(e){
+    if(e.key === 'ArrowRight') goNext();
+    if(e.key === 'ArrowLeft') goPrev();
+  });
+
+  var bgm = document.getElementById('bgm');
+  var musicBtn = document.getElementById('musicBtn');
+  var playing = false;
+  musicBtn.addEventListener('click', function(){
+    if(!playing){
+      bgm.play().then(function(){
+        playing = true;
+        musicBtn.classList.add('spinning');
+        musicBtn.textContent = '🎶';
+      }).catch(function(){
+        musicBtn.textContent = '🔇';
+      });
+    } else {
+      bgm.pause();
+      playing = false;
+      musicBtn.classList.remove('spinning');
+      musicBtn.textContent = '🎵';
+    }
+  });
+
+  function revealDate(){
+    var val = document.getElementById('dateGuess').value.trim();
+    var err = document.getElementById('dateErr');
+    var out = document.getElementById('dateReveal');
+    if(val === ''){ err.classList.add('show'); out.classList.remove('show'); return; }
+    err.classList.remove('show');
+    out.classList.add('show');
+  }
+  document.getElementById('dateCheckBtn').addEventListener('click', revealDate);
+  document.getElementById('dateGuess').addEventListener('input', function(){
+    document.getElementById('dateErr').classList.remove('show');
+  });
+
+  function answerQ1(){
+    var val = document.getElementById('q1').value.trim();
+    var err = document.getElementById('q1Err');
+    var out = document.getElementById('q1Reveal');
+    if(val === ''){ err.classList.add('show'); out.classList.remove('show'); return; }
+    err.classList.remove('show');
+    out.classList.add('show');
+  }
+  function answerQ2(){
+    var val = document.getElementById('q2').value.trim();
+    var err = document.getElementById('q2Err');
+    var out = document.getElementById('q2Reveal');
+    if(val === ''){ err.classList.add('show'); out.classList.remove('show'); return; }
+    err.classList.remove('show');
+    out.classList.add('show');
+  }
+  document.getElementById('q1Btn').addEventListener('click', answerQ1);
+  document.getElementById('q2Btn').addEventListener('click', answerQ2);
+  document.getElementById('q1').addEventListener('input', function(){ document.getElementById('q1Err').classList.remove('show'); });
+  document.getElementById('q2').addEventListener('input', function(){ document.getElementById('q2Err').classList.remove('show'); });
+
+  var quizData = [
+    { q: "Where did Ja-O confess her feelings to Mon?", opts: ["The cafeteria", "The art classroom", "The library", "On the way home"], correct: 1 },
+    { q: "What candy flavor did Mon always bring for Ja-O?", opts: ["Grape", "Mango", "Strawberry", "Cola"], correct: 2 },
+    { q: "What is our anniversary date?", opts: ["9 December", "12 September", "21 September", "2 September"], correct: 1 },
+    { q: "How many years have we been together as of 2026?", opts: ["6 years", "7 years", "8 years", "9 years"], correct: 2 }
+  ];
+
+  var quizArea = document.getElementById('quizArea');
+  var answered = new Array(quizData.length).fill(false);
+  var score = 0;
+
+  quizData.forEach(function(item, qi){
+    var block = document.createElement('div');
+    block.className = 'quiz-q';
+    var qtext = document.createElement('p');
+    qtext.className = 'qtext';
+    qtext.textContent = (qi+1) + '. ' + item.q;
+    block.appendChild(qtext);
+    var optsWrap = document.createElement('div');
+    optsWrap.className = 'opts';
+    item.opts.forEach(function(optText, oi){
+      var optEl = document.createElement('div');
+      optEl.className = 'opt';
+      optEl.textContent = optText;
+      optEl.addEventListener('click', function(){
+        if(answered[qi]) return;
+        answered[qi] = true;
+        var allOpts = optsWrap.querySelectorAll('.opt');
+        allOpts.forEach(function(o){ o.classList.add('disabled'); });
+        if(oi === item.correct){
+          optEl.classList.add('correct');
+          score++;
+        } else {
+          optEl.classList.add('wrong');
+          allOpts[item.correct].classList.add('correct');
+        }
+        if(answered.every(Boolean)){
+          var scoreBox = document.getElementById('quizScore');
+          scoreBox.textContent = 'You scored ' + score + ' out of ' + quizData.length + ' — ' + (score === quizData.length ? 'perfect memory! 💛' : 'still pretty good, we will make more memories to remember.');
+          scoreBox.classList.add('show');
+        }
+      });
+      optsWrap.appendChild(optEl);
+    });
+    block.appendChild(optsWrap);
+    quizArea.appendChild(block);
+  });
+
+  var target = new Date('2026-09-12T11:00:00');
+  function tickCountdown(){
+    var now = new Date();
+    var diff = target - now;
+    if(diff <= 0){
+      document.getElementById('cd-d').textContent = '0';
+      document.getElementById('cd-h').textContent = '0';
+      document.getElementById('cd-m').textContent = '0';
+      document.getElementById('cd-s').textContent = '0';
+      return;
+    }
+    var d = Math.floor(diff/(1000*60*60*24));
+    var h = Math.floor((diff/(1000*60*60))%24);
+    var m = Math.floor((diff/(1000*60))%60);
+    var s = Math.floor((diff/1000)%60);
+    document.getElementById('cd-d').textContent = d;
+    document.getElementById('cd-h').textContent = h;
+    document.getElementById('cd-m').textContent = m;
+    document.getElementById('cd-s').textContent = s;
+  }
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
+
+  var giftOpened = false;
+  function openGift(){
+    if(giftOpened) return;
+    giftOpened = true;
+    document.getElementById('giftMsg').classList.add('show');
+    launchConfetti();
+  }
+  document.getElementById('giftbox').addEventListener('click', openGift);
+  function launchConfetti(){
+    var colors = ['#F6BFCB','#AEDBEA','#FCE1A4','#F6C6A0','#E8899E'];
+    for(var i=0;i<70;i++){
+      (function(){
+        var el = document.createElement('div');
+        el.className = 'confetti';
+        var size = 6 + Math.random()*6;
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.left = (Math.random()*100) + 'vw';
+        el.style.background = colors[Math.floor(Math.random()*colors.length)];
+        el.style.opacity = 0.9;
+        document.body.appendChild(el);
+        var duration = 2500 + Math.random()*2000;
+        var rotate = Math.random()*360;
+        var startTime = performance.now();
+        function frame(now){
+          var elapsed = now - startTime;
+          var progress = elapsed / duration;
+          if(progress >= 1){ el.remove(); return; }
+          var y = progress * (window.innerHeight + 40) - 20;
+          el.style.transform = 'translateY(' + y + 'px) rotate(' + (rotate*progress*4) + 'deg)';
+          requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      })();
+    }
+  }
+</script>
+</body>
+</html>
